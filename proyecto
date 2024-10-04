@@ -1,0 +1,112 @@
+#predicion sobre un pendulo
+
+from sympy import Symbol, integrate, sqrt, pprint
+
+t = Symbol('t')
+masa = "X"
+r = "X"
+tension = "X"
+angulo = "X"
+omega = "X"
+gravedad = 9.8
+peso = "X"
+aceleraciont = 0 
+W = "X"
+aceleracionr = "X"
+aceleracion = "X"
+velocidad = "X"
+
+posicion = "X"
+
+
+print("masa, radio, tension, angulo, omega(α), peso, aceleracionT, W, aceleracionR, aceleracion, velocidad, posicion ")
+
+
+respuesta = "si"
+
+print("¿Cuales datos posee?")
+
+while respuesta == "si":
+
+ opcion = input("inserte la variable a cambiar: ")
+
+ nuevo_valor = input("que valor presenta?: ")
+
+ if opcion == "masa":
+    masa = int(nuevo_valor)
+ elif opcion == "radio":
+    r = int(nuevo_valor)
+ elif opcion == "tension":
+    tension = int(nuevo_valor)
+ elif opcion == "angulo":
+    angulo = int(nuevo_valor)
+ elif opcion == "tension":
+    tension = int(nuevo_valor)
+ elif opcion == "omega":
+    omega = int(nuevo_valor)
+ elif opcion == "peso":
+    peso = int(nuevo_valor)
+ elif opcion == "aceleracionT":
+    aceleracionT = int(nuevo_valor)
+ elif opcion == "W":
+    W = int(nuevo_valor)
+ elif opcion == "aceleracionR":
+    aceleracionr = int(nuevo_valor)
+ elif opcion == "aceleracion":
+    aceleracion = int(nuevo_valor)
+ elif opcion == "velocidad":
+    velocidad = int(nuevo_valor)
+ elif opcion == "posicion":
+    posicion = int(nuevo_valor)
+ else:
+    print("Opción no válida.")
+    
+ respuesta = input("desea ingresar otro valor?: ")
+
+
+tiempo = int(input("en que tiempo quiero ver? "))
+
+
+
+if peso == "X":
+   peso = masa*gravedad
+
+if masa == "X":
+ masa = peso/gravedad
+
+if W == "X":
+   W = integrate(omega, (t, tiempo, 0))
+ 
+if angulo == "X":
+ angulo = integrate(W, (t, tiempo, 0))
+
+if omega != "X":
+ aceleraciont = r*omega
+
+if r == "X" and aceleraciont !="X" :
+ r = aceleraciont//omega
+
+if aceleracionr == "X":
+ aceleracionr = r*(W**2)
+ 
+if aceleraciont == "X" and aceleracionr != "X":
+  r = aceleracionr/(W**2)
+
+if aceleracion == "X":
+ aceleracion = sqrt((aceleraciont**2) + (aceleracionr**2))
+
+if velocidad == "X":
+ velocidad = integrate(aceleracion, (t, tiempo, 0))
+
+if posicion == "X":
+ posicion = integrate(velocidad, (t, tiempo, 0))
+
+while posicion > r:
+  posicion = posicion//2
+
+pendulo = {"masa" : masa, "radio" : r, "tension" : tension, "angulo" : angulo, "omega" : omega,
+       "peso" : masa*gravedad, "aceleracionT" : aceleraciont, 
+       "W" : W, "aceleracionR" : aceleracionr, "aceleracion" : aceleracion, "velocidad" : velocidad,
+       "posicion" : posicion}
+
+print(pendulo)
